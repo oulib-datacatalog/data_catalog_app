@@ -70,6 +70,7 @@ function set_auth(base_url,login_url){
         data.csrftoken = getCookie('csrftoken')
         //source = $('#user-template').html()
         //user_template = Handlebars.compile(source);
+        data.gravator_url = data.gravator_url.replace("http","https")
         user_template = Handlebars.templates['tmpl-user']
         $('#profile').append(user_template(data))
         $('#user_form').hide()
@@ -97,6 +98,7 @@ function load_task_history(url){
     $('#result_tbody').html("")//clear table
     $.each(data.results, function(i, item) {
         temp=item.task_name.split('.')
+	item.result = item.result.replace("http","https")
         item['task_name']= temp[temp.length-1]
         item.timestamp = item.timestamp.substring(0,19).replace('T',' ')
         $('#result_tbody').append(tr_template(item)) 
