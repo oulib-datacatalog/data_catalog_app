@@ -20,10 +20,40 @@ $(function() {
                     return ""
                 } 
     });
-    //$('#reset_password').click(function(){$('#pass_form').toggle(!$('#pass_form').is(':visible'));});
-    //$('#user_form').submit(function(){var formData = JSON.parse($("#user_form").serializeArray());console.log(formData);return false;})
+    //DIGILAB APP
+    $('#myTab').hide();
+    load_main_page();
 });//End of Document Ready
 
+function load_main_page(){
+    template = Handlebars.templates['tmpl-main']
+    $('#home').empty()
+    $('#home').append(template({}))
+    search_term = $('#search').val();
+    search_url= "/api/catalog/data/catalog/bagit_inventory/?format=json';
+    $('#submitSearch').click(function(){
+        query="{'filter':{'bag':{'$regex':'" + $('#search').val() + "','$options':'-i'}}}";
+        url = search_url + "&query=" + query;
+        run_search(url);
+    });
+    $("#search").keyup(function(event){
+        if(event.keyCode == 13){
+            $("#submitSearch").click();
+        }
+    });
+    //load data
+    run_search(search_url);
+}
+function run_search(url){
+    tr_template = Handlebars.templates['tmpl-result-tr']
+    $.getJSON(url,function(data){
+            $('#tablebody').empty();
+        $.each(data.results,function(idx,item){
+            console.log(item);
+            $('#tablebody').append(tr_template(item));    
+        });
+    });
+}
 function submit_user(){
     console.log(user_url)
     $.post( user_url,$('#user_form').serializeObject(),function(data){
