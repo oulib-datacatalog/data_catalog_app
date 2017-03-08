@@ -46,9 +46,10 @@ function load_main_page(){
      run_search(search_url);
  }
 function run_search(url){
+    $('#tablebody').empty();
     tr_template = Handlebars.templates['tmpl-result-tr']
     $.getJSON(url,function(data){
-            $('#tablebody').empty();
+        //$('#tablebody').empty();
         $.each(data.results,function(idx,item){
             console.log(item);
             $('#tablebody').append(tr_template(item));    
