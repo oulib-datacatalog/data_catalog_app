@@ -47,10 +47,11 @@ function load_main_page(){
  }
 function run_search(url){
     $('#tablebody').empty();
-    tr_template = Handlebars.templates['tmpl-result-tr']
+    //tr_template = Handlebars.templates['tmpl-result-tr']
     $.getJSON(url,function(data){
         //$('#tablebody').empty();
         $.each(data.results,function(idx,item){
+            tr_template = Handlebars.templates['tmpl-result-tr'] 
             console.log(item);
             $('#tablebody').append(tr_template(item));    
         });
