@@ -101,7 +101,7 @@ function set_auth(base_url,login_url){
         data.csrftoken = getCookie('csrftoken')
         //source = $('#user-template').html()
         //user_template = Handlebars.compile(source);
-        data.gravator_url = data.gravator_url.replace("http","https")
+        //data.gravator_url = data.gravator_url.replace("http","https")
         user_template = Handlebars.templates['tmpl-user']
         $('#profile').append(user_template(data))
         $('#user_form').hide()
